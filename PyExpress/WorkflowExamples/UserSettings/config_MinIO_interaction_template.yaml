@@ -1,0 +1,29 @@
+# This configuration file controls interactions with the high performance object
+# storage system MinIO (https://github.com/minio/minio) and specifies parameters
+# for object upload and download operations.
+#
+# -----------------------------------------------------------------------------------
+#
+connectionInfo:
+  info:      str    # connection gateway: ['server', 'url']
+  server:    str    # server address for minIO connection
+  portAPI:   str    # port for API access
+  regionAPI: str    # region for API access
+  url:       str    # complete URL for connection (used if specified, otherwise 'server:portAPI' is used)
+#
+credentials:
+  accessKey: str    # access key for the MinIO API
+  secretKey: str    # secret key for the MinIO API
+  api:       str    # API type or version, e.g. 's3v4'
+  path:      str    # access method, e.g., 'auto'
+#
+bucketInfo:
+  name:      str    # bucket name in MinIO
+  campaign:  str    # prefix used for specifying a directory in the bucket
+#
+filters:
+  recursive: bool   # recursively search for objects within the specified bucket directory
+  string:    str    # string for filtering object list
+  list:      [bool, ['AND','OR'], [str, str, str, ...]] # list of strings for filtering object list
+                                                        # filter is applied if bool is set to 'true' 
+                                                        # string list filter applied with 'AND'/'OR' logic

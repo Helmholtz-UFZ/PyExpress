@@ -1,0 +1,155 @@
+# This configuration file controls functionalities for photogrammetric processing of UAV data
+# using the following modules:
+# PyExpress - 
+# Metashape - https://www.agisoft.com/downloads/user-manuals/
+#
+# -------------------------------------------------------------------------------------------
+#
+# Input parameters for project generation and reference setup:
+#
+# a) general:           specifications for creating the project ID
+# b) campaign:          metadata for project ID generation / unique classification
+# c) project:           directory of the working environment
+# d) image:             preparation, preprocessing, source, etc.
+#
+input:
+  general:
+    new_project: bool        # whether to create a new project structure
+    ID_source: str           # source for project ID generation: ['campaign', 'string']
+    ID_name: str             # specify projectID if 'string' was chosen above as ID source
+#    
+  campaign:
+    date: str                # date in YYYYMMDD format
+    time: str                # time in hhmm format
+    project: str             # research project name (currently unused)
+    location: str            # location of data acquisition
+    drone: str               # drone model used for data acquisition
+    sensor: str              # spectral channel or sensor type
+    ID_info: str             # additional information for creating a unique project ID
+#
+  project:
+    type: str                # specifies the type of data acquisition: ['UAV', 'stereo']
+    path: str                # absolute path to the dedicated or existing project folder
+#
+  image:
+    preproc:
+      transfer: bool         # whether to transfer images to project/temp_img path
+      convert: bool          # whether to convert image format
+      delete_tmp: bool       # whether to delete content of temp image folder
+    source:                
+      type: str              # source location of image data: ['local', 'minio']
+      local: str             # absolute path to image data folder on a local source
+      minio: str             # absolute path to MinIO login data: '/**/minIO.json|yaml'
+      temp: str              # relative/absolute path to a temp folder for transferred images
+    format:
+      raw: str               # raw format of source images: ['jpg', 'tif', 'tiff', 'png', ...]
+      conv: [bool  , str]    # indicates if a format conversion has already been applied: [true/false, new format]
+#
+# Main processing parameters for a streamlined Metashape workflow for a UAV project
+# NOTE: coordinate system selection/syntax: http://www.agisoft.com/downloads/geoids/
+#
+# a) initialization:  GPU/CPU settings, Metashape GUI version   
+# b) general:         see below
+# c) document/chunk:  document and chunk settings
+# d) reference:       settings related to the Reference Settings Block in Metashape
+# e) setup:           specifications for your fixed camera installation
+# NOTE for (d):       specify the number and order of the cameras in your setup as follows
+#                     --> sensorN with consecutive numbering N = [0,1,2,3,4,...]
+#                     --> !!! Sensors must be in the same order as specified in ['metashape']['setup']['cameras']
+# NOTE for 'initial': the specified parameters can be extended with any of the following list 
+#                     ['f', 'cx', 'cy', 'k1', 'k2', 'k3', 'k4', 'b1', 'b2', 'p1', 'p2']
+# f) export:          specify results to export from the Metashape project
+#
+metashape:
+  initialization:
+    enableGPU:  bool       # whether to enable GPU acceleration in Metashape
+    enableCPU:  bool       # whether to use CPU when GPU is active
+    GUIversion: str        # current Metashape GUI version (e.g., '2.1.2')
+#
+  general:
+    type: str              # data or sensor type: ['IR', 'RGB']
+    quality: list          # list with single string of: ['lite', 'detailed', 'research'] - not yet implemented
+#
+  document:
+    logging: bool          # whether to generate a log file for workflow steps
+    read_only: bool        # whether to open an existing Metashape document in read-only mode
+    ignore_lock: bool      # whether to open an existing Metashape document in ignore-lock mode
+#
+  chunk:
+    ID_active: int         # activate chunk by ID [0,1,2,...] when opening a project; 999: create new chunk
+    label: str             # label for a new created chunk - only applied if ID_active = 999
+#
+  reference:              
+    general:
+      use_ref: bool              # whether to set references automatically
+      chunk_crs: str             # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+    measurement:
+      camera_crs: str            # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+      camera_acc_met: [10,10,10] # XYZ vector [meters] according to GPS location accuracy; default: [10,10,10]
+      camera_acc_deg: [10,10,10] # XYZ vector [degree] according to GPS location accuracy; default: [10,10,10]
+      marker_crs: str            # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+      marker_acc: [0.5,0.5,0.5]  # XYZ vector [meters] according to marker measurement accuracy; default: [0.5,0.5,0.5]   
+    projection:
+      marker_acc: float          # projection accuracy of markers in the image in pixels; default: 0.5
+      tiepoint_acc: float        # tiepoint accuracy in the image in pixels; default: 1.0
+    scalebar:
+      image_IDs: list            # IDs of images between which a scalebar will be defined
+      dist: float                # distance between a specified start and an endpoint in meters
+      acc: float                 # accuracy of the distance/scalebar in meters
+      enable: bool               # enables or disables the scalebar 
+# 
+  setup:
+    cameras:    [str, str]                  # list of cameras in the stereo network
+    sensor1:
+      general:
+        label:    str                       # label of the 1st camera in the list
+        type:     str                       # camera sensor type: ['cylindrical', 'fisheye', 'frame', 'spherical']
+        width:    int                       # image width in pixels
+        height:   int                       # image height in pixels
+        constant: float                     # focal length in mm
+        pix_size: float                     # pixel size of the sensor in mm
+      initial:
+        f:   [bool, float]   
+        cx:  float                          # principle point x in mm
+        cy:  float                          # principle point y in mm
+        fixed_cal: bool                     # whether to fix all parameters during optimization
+        fixed_param: ['f','cx']             # parameters fixed during optimization 
+                                            # ['f', 'cx', 'cy', 'k1', 'k2', 'k3', 'k4', 'b1', 'b2', 'p1', 'p2']        
+      spectral:
+        bands:    ['Red', 'Green', 'Blue']  # spectral bands: RGB is default here
+        black_level: [0,0,0]                # black level: [0,0,0] is default here
+        sensitivity: [1,1,1]                # sensitivity level: [1,1,1] is default here
+      reference:
+        use:    bool                        # use the following specifications if EXIF data is not available
+        loc:    [x0,y0,z0]                  # position of 1st sensor in the camera coordinate system
+        acc:    [x0_sig, y0_sig, z0_sig]    # accuracy of 1st sensor in the camera coordinate system
+    sensor2:
+      general:
+        label:    str                       # label of the 2st camera in the list
+        type:     str                       # camera sensor type: ['cylindrical', 'fisheye', 'frame', 'spherical']
+        width:    int                       # image width in pixels
+        height:   int                       # image height in pixels
+        constant: float                     # focal length in mm
+        pix_size: float                     # pixel size of the sensor in mm
+      initial:
+        f:   [bool, float]   
+        cx:  float                          # principle point x in mm
+        cy:  float                          # principle point y in mm
+        fixed_cal: bool                     # whether to fix all parameters during optimization
+        fixed_param: ['f','cx']             # parameters fixed during optimization 
+                                            # ['f', 'cx', 'cy', 'k1', 'k2', 'k3', 'k4', 'b1', 'b2', 'p1', 'p2']        
+      spectral:
+        bands:    ['Red', 'Green', 'Blue']  # spectral bands: RGB is default here
+        black_level: [0,0,0]                # black level: [0,0,0] is default here
+        sensitivity: [1,1,1]                # sensitivity level: [1,1,1] is default here
+      reference:
+        use:    bool                        # use the following specifications if EXIF data is not available
+        loc:    [x0,y0,z0]                  # position of 2nd sensor in the camera coordinate system
+        acc:    [x0_sig, y0_sig, z0_sig]    # accuracy of 2nd sensor in the camera coordinate system
+
+#
+  export:
+    ortho_crs: str      # output coordinate system for ortho projection
+    type: list          # which result(s) to be exported
+                        # ['camera', 'dem', 'dem_trafo', 'marker', 'model', 'ortho', 'ortho_trafo', 
+                        # 'point_cloud', 'precision_map', 'report', 'tiled_model']

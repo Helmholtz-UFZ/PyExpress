@@ -1,0 +1,38 @@
+from setuptools import setup, find_packages
+
+setup(
+    name='PyExpress',
+    version='1.0',
+    description='Python library for automatic 3D image analysis pipelines',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
+    url='https://git.ufz.de/ufz_express/PyExpress.git',
+    author='Claudius Wehner & Martin Kobe',
+    author_email='martin.kobe@ufz.de',
+    classifiers=[
+        'Development Status :: 3 - Pre-Alpha',
+        'Intended Audience :: Science/Research',
+        'Operating System :: Microsoft :: Windows :: Windows 10',
+        'Programming Language :: Python :: 3.11',
+        'License :: OSI Approved :: MIT License',
+    ],
+    keywords='3D image analysis, photogrammetry, research, automation, pipeline',
+    packages=find_packages(include=['PyExpress', 'PyExpress.*']),
+    install_requires=[
+        'python-abc',
+        'influxdb-client',
+        'pysftp',
+        'opencv-python',
+        'tifffile',
+        'pandas',
+        'seaborn',
+        'scikit-learn',
+        'scikit-image',
+        'minio',
+        'numpy',
+        'astral',
+    ],
+    python_requires='>=3.7',
+    include_package_data=True,
+    zip_safe=False,
+)

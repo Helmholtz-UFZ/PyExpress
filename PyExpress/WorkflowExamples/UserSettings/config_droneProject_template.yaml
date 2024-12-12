@@ -1,0 +1,157 @@
+# This configuration file controls functionalities for photogrammetric processing of UAV data
+# using the following modules:
+# PyExpress - 
+# Metashape - https://www.agisoft.com/downloads/user-manuals/
+#
+# -------------------------------------------------------------------------------------------
+#
+# Input parameters for project generation and reference setup:
+#
+# a) general:           specifications for creating the project ID
+# b) campaign:          metadata for project ID generation / unique classification
+# c) project:           directory of the working environment
+# d) image:             preparation, preprocessing, source, etc.
+# e) marker_reference:  coordinate system, source files, format, etc.
+#
+input:
+  general:
+    new_project: bool        # whether to create a new project structure
+    ID_source: str           # source for project ID generation: ['campaign', 'string']
+    ID_name: str             # specify projectID if 'string' was chosen above as ID source
+#    
+  campaign:
+    date: str                # date in YYYYMMDD format
+    time: str                # time in hhmm format
+    project: str             # research project name (currently unused)
+    location: str            # location of data acquisition
+    drone: str               # drone model used for data acquisition
+    sensor: str              # spectral channel or sensor type
+    ID_info: str             # additional information for creating a unique project ID
+#
+  project:
+    type: str                # specifies the type of data acquisition: ['UAV', 'stereo']
+    path: str                # absolute path to the dedicated or existing project folder
+#
+  image:
+    preproc:
+      transfer: bool         # whether to transfer images to project/temp_img path
+      convert: bool          # whether to convert image format
+      delete_tmp: bool       # whether to delete content of temp image folder
+    source:                
+      type: str              # source location of image data: ['local', 'minio']
+      local: str             # absolute path to image data folder on a local source
+      minio: str             # absolute path to MinIO login data: '/**/minIO.json|yaml'
+      temp: str              # relative/absolute path to a temp folder for transferred images
+    format:
+      raw: str               # raw format of source images: ['jpg', 'tif', 'tiff', 'png', ...]
+      conv: [bool  , str]    # indicates if a format conversion has already been applied: [true/false, new format]
+#
+  marker_reference:
+    set_marker_manu: bool    # whether to add markers manually through the Metashape GUI
+    exp_marker_path: str     # export directory for manually set markers
+    use_GCP_meas: bool       # whether to import ground controll points
+    reference_path: str      # CSV file path for GCP coordinates: 'F:/.../MarkerCoord.csv'
+    format: str              # column order in the GCP coord file: ['nxyz', 'nxyzXYZ']
+                             # n=marker_id, x=x-coord, y=y-coord, z=height 
+    use_GCP_proj: bool()     # whether to use marker projections in images
+    projections_path: str    # CSV file path for projections: 'F:/.../MarkerProjectionsKeys.csv'
+#
+  reflectance:
+    use:   bool              # whether to use reflectance panels for sensor calibration
+    usage: list              # list with single string of: ['sunsensor', 'reflectancepanel', 'both']
+    reflectancepanel_path: str  # CSV file path to reflectance panel data: 'F:/.../RefPanel.csv'
+#
+# Main processing parameters for a streamlined Metashape workflow for a UAV project
+# NOTE: coordinate system selection/syntax: http://www.agisoft.com/downloads/geoids/
+#
+# a) initialization: GPU/CPU settings, Metashape GUI version   
+# b) general:        see below
+# c) document/chunk: document and chunk settings
+# d) reference:      settings related to the Reference Settings Block in Metashape
+# f) point_cloud:    classification and filtering commands
+# g) export:         specify results to export from the Metashape project
+# h) cwsi:           (not implemented yet)
+# i) vegetation:     raster transformation settings for the active chunk
+# ...
+#
+metashape:
+  initialization:
+    enableGPU:  bool       # whether to enable GPU acceleration in Metashape
+    enableCPU:  bool       # whether to use CPU when GPU is active
+    GUIversion: str        # current Metashape GUI version (e.g., '2.1.2')
+#
+  general:
+    type: str              # data or sensor type: ['IR', 'RGB']
+    quality: list          # list with single string of: ['lite', 'detailed', 'research'] - not yet implemented
+#
+  document:
+    logging: bool          # whether to generate a log file for workflow steps
+    read_only: bool        # whether to open an existing Metashape document in read-only mode
+    ignore_lock: bool      # whether to open an existing Metashape document in ignore-lock mode
+#
+  chunk:
+    ID_active: int         # activate chunk by ID [0,1,2,...] when opening a project; 999: create new chunk
+    label: str             # label for a new created chunk - only applied if ID_active = 999
+#
+  reference:              
+    general:
+      use_ref: bool              # whether to set references automatically
+      chunk_crs: str             # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+    measurement:
+      camera_crs: str            # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+      camera_acc_met: [10,10,10] # XYZ vector [meters] according to GPS location accuracy; default: [10,10,10]
+      camera_acc_deg: [10,10,10] # XYZ vector [degree] according to GPS location accuracy; default: [10,10,10]
+      marker_crs: str            # ['local', 'EPSG::25833', 'EPSG::4326', ...]; default: 'local'
+      marker_acc: [0.5,0.5,0.5]  # XYZ vector [meters] according to marker measurement accuracy; default: [0.5,0.5,0.5]   
+    projection:
+      marker_acc: float          # projection accuracy of markers in the image in pixels; default: 0.5
+      tiepoint_acc: float        # tiepoint accuracy in the image in pixels; default: 1.0
+    scalebar:
+      image_IDs: list            # IDs of images between which a scalebar will be defined
+      dist: float                # distance between a specified start and an endpoint in meters
+      acc: float                 # accuracy of the distance/scalebar in meters
+      enable: bool               # enables or disables the scalebar 
+# 
+  point_cloud:
+    classification:
+      use: bool         # whether to classify the point cloud
+      copy_chunk: bool  # create a copy of the main chunk for point cloud classification
+      type: str         # plant types or test: ['vine', 'crop', 'test']
+      set: str          # parameterset: ['set1', 'set2', 'set3', 'set4']
+                        # specified in PyExpress/WorkflowExamples/UserSettings/pointcloud_classification_parameters.py
+      max_angle: 1.2    # max angle parameter (test)
+      max_distance: 0.7 # max distance parameter (test)
+      cell_size: 1.5    # cell size parameter (test)
+                        # add the tested parameters to pointcloud_classification_parameters.py if approved
+    filter:
+      unclass: bool     # filter your classified point cloud for unclassified points
+      noise: bool       # filter your classified point cloud for high noise
+      ground: bool      # filter your classified point cloud for ground point class
+      preview: bool     # save preview as a TIFF file into your project export directory
+#
+  export:
+    ortho_crs: str      # output coordinate system for ortho projection
+    type: list          # which result(s) to be exported
+                        # ['camera', 'dem', 'dem_trafo', 'marker', 'model', 'ortho', 'ortho_trafo', 
+                        # 'point_cloud', 'precision_map', 'report', 'tiled_model']
+#
+  cwsi:
+    t_air: float        # average air temperature during the flight
+    t_dry: float        # temperature for plants under water stress
+    t_wet: float        # temperature for plants without water stress
+#
+  vegetation:
+    rangeAuto: bool     # whether to automatically detect raster transformation range based on ortho histogram
+    indexIR: ['B1']     # vegetation index for IR channel; default: 'B1' for images with one spectral channel
+    rangeIR: [0,40]     # range for raster transformation
+    indexMulti: list    # vegetation indices for multi-band analysis (!for now RGB is also covered here!)
+                        # ['B1/32768', 'B2/32768', 'B3/32768', 'B4/32768', 
+                        #  'B5/32768', '(B5-B3)/(B5+B3)','(B5-B4)/(B5+B4)']  
+    rangeMulti: [0,10]  # range for raster transformation
+    palette:            # dictionary of a color palette for raster transformation
+     -1.0: [5, 24, 82]      # class: list() --> class and list content is changeable! 
+     0.0:  [255, 255, 255]  # ...
+     10:   [191, 165, 127]  # ...  
+     20:   [135, 184, 0]    # ...
+     30:   [0, 115, 0]      # ...
+     40:   [0, 0, 0]        # ...
