@@ -1,5 +1,9 @@
 ############## ÜBERARBEITUNG NÖTIG ##################
 
+von Thomas: licensing - How to add license to an existing GitHub project - Stack Overflow
+
+#########################################################################################
+
 SOFTWARE LICENCE
 
 This file is part of the "System for Automated Quality Control" developed by the Research Data Management Team of the Helmholtz Centre for Environmental Research - UFZ.
