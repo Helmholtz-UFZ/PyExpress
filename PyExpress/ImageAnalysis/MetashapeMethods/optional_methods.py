@@ -166,11 +166,12 @@ class Export():
             savepath_1    = f'{project.export_dir}\\{project.chunk.label}'
             export_path_1 = f'{savepath_1}\\marker_projections.csv'
                         
-            savepath_2    = project.config.input.marker_reference.exp_marker_path
+            savepath_2    = os.path.normpath(project.config.input.marker_reference.exp_marker_path)
             # saveID        = project.project_dir.split('\\')[-2]
             filename      = os.path.basename(savepath_2).split('.')[0]
+            dirname       = os.path.dirname(savepath_2)
             # export_path_2 = f'{savepath_2}\\{saveID}_marker_projections.csv'
-            export_path_2 = f'{savepath_2}\\{filename}.csv'
+            export_path_2 = f'{dirname}\\{filename}.csv'
 
             os.makedirs(savepath_1, exist_ok=True)
             os.makedirs(savepath_2, exist_ok=True)
@@ -198,11 +199,12 @@ class Export():
             project.chunk.exportMarkers(path=export_path, **kwargs)
             
             if export_format == 'both' and project.config.input.marker_reference.set_marker_manu == True:
-                savepath_2    = project.config.input.marker_reference.exp_marker_path
+                savepath_2    = os.path.normpath(project.config.input.marker_reference.exp_marker_path)
                 # saveID        = project.project_dir.split('\\')[-2]
                 filename      = os.path.basename(savepath_2).split('.')[0]
+                dirname       = os.path.dirname(savepath_2)
                 # export_path_2 = f'{savepath_2}\\{saveID}_marker_projections.xml' 
-                export_path_2 = f'{savepath_2}\\{filename}.xml' 
+                export_path_2 = f'{dirname}\\{filename}.xml' 
                 
                 project.chunk.exportMarkers(path=export_path_2)
 
