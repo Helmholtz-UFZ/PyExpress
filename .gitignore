@@ -1,7 +1,3 @@
-# virtual environments
-venv/
-.venv/
-
 # log and temporary files
 *.log
 *.tmp

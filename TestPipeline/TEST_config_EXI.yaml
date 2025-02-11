@@ -1,3 +1,11 @@
+#! /usr/bin/env python
+
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# -*- coding: utf-8 -*-
+
 # This configuration file controls functionalities for photogrammetric processing of UAV data
 # using the following modules:
 # PyExpress - 
@@ -48,13 +56,13 @@ input:
 #
   marker_reference:
     set_marker_manu: false            # [True/False]: add markers manually through the Metashape GUI
-    exp_marker_path: ''               # string: export directory for manually set markers
+    exp_marker_path: ''               # string: full export path for manually set markers either in csv or xml
     use_GCP_meas: true                # [True/False]: import ground control points
     reference_path: "./data/GCP/marker_reference.csv" # string: csv file path for GCP coordinates
     format: 'nxyz'                    # string: ['nxyz', 'nxyzXYZ'] - column order in the GCP coord file
                                       #           n=marker_id, x=x-coord, y=y-coord, z=height
     use_GCP_proj: true                # [True/False]: whether to use marker projections in images
-    projections_path: "./data/GCP/marker_projections.csv" # string: CSV file path for projections
+    projections_path: "./data/GCP/marker_projections.csv" # string: CSV/XML file path for projections
 #
   reflectance:
     use: false                        # [True/False]: use reflectance panels for sensor calibration

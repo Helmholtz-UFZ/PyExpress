@@ -48,13 +48,13 @@ input:
 #
   marker_reference:
     set_marker_manu: bool    # whether to add markers manually through the Metashape GUI
-    exp_marker_path: str     # export directory for manually set markers
+    exp_marker_path: str     # full export path for manually set markers in either csv or xml format
     use_GCP_meas: bool       # whether to import ground controll points
     reference_path: str      # CSV file path for GCP coordinates: 'F:/.../MarkerCoord.csv'
     format: str              # column order in the GCP coord file: ['nxyz', 'nxyzXYZ']
                              # n=marker_id, x=x-coord, y=y-coord, z=height 
     use_GCP_proj: bool()     # whether to use marker projections in images
-    projections_path: str    # CSV file path for projections: 'F:/.../MarkerProjectionsKeys.csv'
+    projections_path: str    # CSV/XML file path for projections: 'F:/.../MarkerProjectionsKeys.csv'
 #
   reflectance:
     use:   bool              # whether to use reflectance panels for sensor calibration
