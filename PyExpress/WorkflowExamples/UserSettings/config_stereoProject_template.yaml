@@ -16,7 +16,7 @@ input:
   general:
     new_project: bool        # whether to create a new project structure
     ID_source: str           # source for project ID generation: ['campaign', 'string']
-    ID_name: str             # specify projectID if 'string' was chosen above as ID source
+    ID_string: str           # specify projectID if 'string' was chosen above as ID source
 #    
   campaign:
     date: str                # date in YYYYMMDD format
