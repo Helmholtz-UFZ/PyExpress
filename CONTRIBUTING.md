@@ -53,7 +53,7 @@ We appreciate your contributions to making PyExpress better!
   + Regular merges from `develop`
 - `develop` - branch:
   + The main development branch, no hard stability requirements/guarantees
-  + Merges into `develop` should follow a [Merge Request Workflow](#merge-request-workflow)
+  + Merges into `develop` should follow the following workflow
 
 ## 1. Reporting Issues
 If you encounter a bug or have a suggestion for improvement, 
