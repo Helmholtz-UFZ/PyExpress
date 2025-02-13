@@ -2,7 +2,7 @@ cff-version: 1.2.0
 title: PyExpress
 message: "Please cite this software using these metadata."
 type: software
-version: 1.0.0
+version: 1.0
 doi: 10.5281/zenodo.14245920
 date-released: ""
 license: "GPL-3.0"
@@ -38,7 +38,8 @@ authors:
     family-names: Wehner
     email: c.wehner@live.de
     affiliation: >-
-      German Federal Environment Agency
+      German Federal Environment Agency - 
+	  UBA
     orcid: '0000-0003-3257-3279'
   - given-names: Hannes
     family-names: Mollenhauer

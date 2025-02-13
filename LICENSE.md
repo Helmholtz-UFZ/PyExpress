@@ -44,8 +44,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
 Public License for more details.
 
 You should have received a copy of the GNU General Public License along
-with this program - see [LICENSES/GPL-3.0-or-later.txt]. If not, it can be found at
-[https://www.gnu.org/licenses/gpl-3.0.txt].
+with this program - see [LICENSES/GPL-3.0-or-later.txt](LICENSES/GPL-3.0-or-later.txt). If not, it can be found at
+https://www.gnu.org/licenses/gpl-3.0.txt.
 
 
 ** Additional Permission under GNU GPL version 3 section 7 **

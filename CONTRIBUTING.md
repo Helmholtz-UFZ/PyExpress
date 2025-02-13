@@ -60,7 +60,7 @@ To contribute code, please follow these steps:
 - Click the "Fork" button in the top-right corner of the GitHub repository to create your own copy of the project.
 
 ### 2.2. **Clone your fork**:
-- ```bash
+- open a console / bash
 - git clone https://github.com/your-username/PyExpress.git
 - cd PyExpress
 
