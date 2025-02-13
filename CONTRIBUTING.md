@@ -46,6 +46,15 @@ We appreciate your contributions to making PyExpress better!
 
 # How to Contribute
 
+## Repository Structure
+
+- `master` - branch:
+  + Stable and usually protected
+  + Regular merges from `develop`
+- `develop` - branch:
+  + The main development branch, no hard stability requirements/guarantees
+  + Merges into `develop` should follow a [Merge Request Workflow](#merge-request-workflow)
+
 ## 1. Reporting Issues
 If you encounter a bug or have a suggestion for improvement, 
 please open an issue in the GitHub repository. Make sure to provide:
