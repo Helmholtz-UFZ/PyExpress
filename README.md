@@ -6,15 +6,15 @@ fully automated workflows for photogrammetric analysis on images captured by UAV
 Additionally, PyExpress supports 4D photogrammetry for continuous monitoring with fixed stereo camera setups, and integrates with MinIO for efficient cloud storage management. It automates the generation of point clouds, orthomosaics, DEMs, 3D models, precision maps, and more. 
 Thus, PyExpress generates data products or time-series of data products, serving various applications such as GIS, CloudCompare, or precision mapping.
 
-For detailed documentation, refer to the [PyExpress v1.0.0 Tutorial](DOCS/PyExpress_v1.0.pdf).
+For detailed documentation, refer to the [PyExpress v1.0.0 Tutorial](DOCS/PyExpress_v1.0.0.pdf).
 
 ## Installation
 
-To install PyExpress, please follow the detailed instructions provided in the [PyExpress v1.0.0 Tutorial](DOCS/PyExpress_v1.0.pdf).
+To install PyExpress, please follow the detailed instructions provided in the [PyExpress v1.0.0 Tutorial](DOCS/PyExpress_v1.0.0.pdf).
 
 ## Usage
 
-For complete instructions on how to use PyExpress, refer to the [PyExpress v1.0 Tutorial](DOCS/PyExpress_v1.0.0.pdf).
+For complete instructions on how to use PyExpress, refer to the [PyExpress v1.0.0 Tutorial](DOCS/PyExpress_v1.0.0.pdf).
 
 ## License
 
