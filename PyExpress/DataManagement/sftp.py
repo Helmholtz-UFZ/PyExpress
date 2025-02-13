@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Instructions on how to use the package: https://pysftp.readthedocs.io/en/release_0.2.9/cookbook.html
 
 # also needs to be tested!

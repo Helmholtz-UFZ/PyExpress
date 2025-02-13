@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # log and temporary files
 *.log
 *.tmp
@@ -10,24 +13,16 @@ Thumbs.db
 metashape.lic
 
 # developer and not published scripts
-troubleshooting.py
-# PyExpress/QualityAssessment/quality_control_tools.py
 PyExpress/DataManagement/influxDB.py
 PyExpress/DataManagement/sftp.py
-exampleProcessing.ipynb
 
 # directories
 build/
-PyExpress/idea/
 PyExpress/QualityAssessment/
-TestPipeline/MSprojects/
-.spyproject/
-**.spyproject/
-.archiv/
-PyExpress.egg-info/
 PyExpress/WorkflowExamples/agisoft_writeMarkerProjectionsToFile/
 
-# caches ...
+# caches
+**/__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -36,5 +31,8 @@ __pycache__/
 dist/
 *.egg-info/
 .eggs/
-**/*.egg
 .wheel/
+
+# environments
+venv*/
+**/.*

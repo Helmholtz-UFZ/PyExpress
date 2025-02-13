@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from .drone_project  import DroneProject
 from .stereo_project import StereoProject
 from ._project       import _MetashapeProject

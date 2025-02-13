@@ -1,38 +1,35 @@
 # PyExpress
 
-PyExpress is a Python package developed at UFZ Leipzig by the EXPRESS research project. Its main purpose is to:
+PyExpress version 1.0 is a Python library for automating photogrammetric image processing using the Agisoft Metashape Python API.
+It extends Metashape’s functionality, for example, by adding utility and data management tools, and offers a range of methods for developing tailored,
+fully automated workflows for photogrammetric analysis on images captured by UAVs and fixed camera systems.
+Additionally, PyExpress supports 4D photogrammetry for continuous monitoring with fixed stereo camera setups, and integrates with MinIO for efficient cloud storage management. It automates the generation of point clouds, orthomosaics, DEMs, 3D models, precision maps, and more. 
+Thus, PyExpress generates data products or time-series of data products, serving various applications such as GIS, CloudCompare, or precision mapping.
 
-1. provide a set of interfaces to regularly or irregularly acquire image and timeseries data from influxDB and SFTP servers,
-2. perform a quality check for both image and timeseries data,
-3. perform a photogrammic processing of the acquired image date and extract ortho images of both multispectral indices and RGB level,
-4. archive the processed data and forward it to a grafana page.
+For detailed documentation, refer to the [PyExpress v1.0 Tutorial](DOCS/PyExpress_v1.0.pdf).
 
-To achieve that, the package includes a set of classes and functions, based on a workflow like structure. 
-The goal is to deliver the functionality of loading the described data to a central processing unit, perform a quality control, photogrammicly process the image data and upload processed image and timeseries data to an end-user interface.
+## Installation
 
-_An introduction on how to use the photogrammicProcessing sub-package is given in the exampleProcessing notebook._
+To install PyExpress, please follow the detailed instructions provided in the [PyExpress v1.0 Tutorial](DOCS/PyExpress_v1.0.pdf).
 
-## To-do’s:
-#### _cleanup code_
-- constanly check documentation!!!
+## Usage
 
-#### _missing functionality_
-_processing function_
-- processing function that adjusts the initial bounding box, which includes the entire model, to only show individual vines
-- processing function which subtracts the height vales from a *solo ground DEM* from a *vine only 3D model* to level the model
-- processing function that exports an ortho raster from the side of each vine
+For complete instructions on how to use PyExpress, refer to the [PyExpress v1.0 Tutorial](DOCS/PyExpress_v1.0.pdf).
 
-_MetashapeProject
-- import reference GCPs 
+## License
 
-- IRProject.py with class IRProject inheriting from multispectralProject but with other indexes ect
+This project is licensed under the GNU General Public License v3.0 or later - see the [LICENSE.md](LICENSE.md) file for details.
 
-- Add PyExpress Pipelines to PyExpress
-- Add a history
-#### Documentation
-- example work flows / quick start guide
-- documentation from Express how to implement PyExpress on MSG, .. or other servers e.g. Grafikrechner, AWS,..
+## Contributing
 
+For contributing to the project, please see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
+## How to cite PyExpress
 
+If PyExpress is advancing your reasearch, please cite as:
 
+>  Kobe, M., Graß, R., Boedecker, H., Wehner, C., & Mollenhauer, H. (2025). PyExpress - Automated Pipeline for Photogrammetric Reconstruction and Processing of Point Clouds from Image Data (1.0). Zenodo. https://doi.org/10.5281/zenodo.14245920
+
+## Funding
+
+This research was funded by the Federal Ministry of Food and Agriculture, grant number 28DE102B18.

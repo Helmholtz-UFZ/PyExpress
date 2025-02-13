@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+title: PyExpress
+message: "Please cite this software using these metadata."
+type: software
+version: 1.0.0
+doi: 10.5281/zenodo.14245920
+date-released: ""
+license: "GPL-3.0"
+repository-code: "https://github.com/Helmholtz-UFZ/PyExpress.git"
+keywords:
+  - photogrammetric image processing
+  - fully automated workflows
+  - 4D image processing
+  - agisoft metashape
+authors:
+  - given-names: Martin
+    family-names: Kobe
+    email: martin.kobe@ufz.de
+    affiliation: >-
+      Helmholtz Centre for Environmental Research -
+      UFZ
+    orcid: '0000-0003-4461-0620'
+  - given-names: Rikard
+    family-names: Graß
+    email: rikard.grass@ufz.de
+    affiliation: >-
+      Helmholtz Centre for Environmental Research -
+      UFZ
+    orcid: '0009-0004-7525-9022'
+  - given-names: Hannah
+    family-names: Boedeker
+    email: hannah.boedeker@ufz.de
+    affiliation: >-
+      Helmholtz Centre for Environmental Research -
+      UFZ
+    orcid: '0009-0002-6051-9333'
+  - given-names: Claudius
+    family-names: Wehner
+    email: c.wehner@live.de
+    affiliation: >-
+      German Federal Environment Agency
+    orcid: '0000-0003-3257-3279'
+  - given-names: Hannes
+    family-names: Mollenhauer
+    email: hannes.mollenhauer@ufz.de
+    affiliation: >-
+      Helmholtz Centre for Environmental Research -
+      UFZ
+    orcid: '0000-0002-4746-9143'

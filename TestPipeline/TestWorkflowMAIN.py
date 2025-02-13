@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """
 Main control script for automatically managing an entire workflow to generate 
 3D spatial data from raw image files acquired by UAV campaigns.

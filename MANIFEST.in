@@ -1,1 +1,1 @@
-global-include *.py *.ipynb *.json *.txt *.md
+global-include *.py *.ipynb *.json *.txt *.md *.yaml *.yml

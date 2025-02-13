@@ -1,0 +1,1 @@
+## 1.0.0 - 14.11.2025 Package Release

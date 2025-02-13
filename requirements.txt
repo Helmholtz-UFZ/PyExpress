@@ -1,0 +1,16 @@
+# General dependencies without version specifications
+numpy
+pandas
+opencv-python
+seaborn
+scikit-learn
+scikit-image
+minio
+astral
+influxdb-client
+pysftp
+tifffile
+
+# Note: Metashape must be manually installed from the .whl file with version >= 2.1.0
+# Download the correct .whl file from https://www.agisoft.com/downloads/installer/ and install using:
+# pip install path_to_metashape.whl

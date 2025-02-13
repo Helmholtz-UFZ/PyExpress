@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 import PyExpress.UtilityTools  as hlp
 import PyExpress.ImageAnalysis as ppp

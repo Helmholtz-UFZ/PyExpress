@@ -1,4 +1,7 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 """
 Example script for automatically performing a complete Metashape (MS) workflow 
@@ -6,7 +9,7 @@ on images from UAV campaigns with the M3T drone.
 
 @author: Martin Kobe, martin.kobe@ufz.de; Rikard Graß, rikard.grass@ufz.de
 
-@status: 11/2024; part of the EXPRESS Project at UFZ Leipzig.
+@status: 02/2025; part of the EXPRESS Project at UFZ Leipzig.
 
 *******************************************************************************
 NOTE: (a) Each single function in the MS main workflow, marked by numbers, is 
