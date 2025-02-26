@@ -175,9 +175,9 @@ class Export():
             dirname       = os.path.dirname(savepath_2)
             # export_path_2 = f'{savepath_2}\\{saveID}_marker_projections.csv'
             export_path_2 = f'{dirname}\\{filename}.csv'
-
+            
             os.makedirs(savepath_1, exist_ok=True)
-            os.makedirs(savepath_2, exist_ok=True)
+            os.makedirs(dirname, exist_ok=True)
             
             for marker in project.chunk.markers:
                 for camera in marker.projections.keys():

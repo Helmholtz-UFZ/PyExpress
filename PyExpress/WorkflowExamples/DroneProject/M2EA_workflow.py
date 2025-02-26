@@ -86,8 +86,6 @@ def M2EA_workflow(config_data: dict,
                                     image_dir     = img_dir,
                                     config_name   = config_name)
 
-    return MultiProject
-
 ###############################################################################
 ##### Photogrammetric image analysis workflow for the drone project
 #####
