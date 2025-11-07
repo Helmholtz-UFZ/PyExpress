@@ -39,7 +39,10 @@ setup(
         'scikit-image',
         'minio',
         'numpy',
-        'astral',
+        'astral'
+        'boto3==1.35.99',
+        'jupyter',
+        'notebook'
     ],
     python_requires='>=3.9',
     license_files=("LICENSE.md", "LICENSES/GPL-3.0-or-later.txt"),

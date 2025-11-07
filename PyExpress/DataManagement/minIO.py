@@ -152,7 +152,7 @@ class MinIO():
 
         ''' 
         Downloads all files listed in the MinIO client class parameter 
-        ‘filelist’ to the path specified in the 'temp_dir' parameter.
+        to the path specified in the 'temp_dir' parameter.
         
         *args:
             as_path: [True, False]

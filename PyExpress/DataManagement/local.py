@@ -5,7 +5,7 @@ import glob, os, shutil
 
 class Local():
         
-    def get_filelist(file_dir: str, ext: str, recursive=False):
+    def get_filelist(file_dir: str, ext='', recursive=False, full_dir=False):
         
         '''
         Returns a list of files of a specified format.
@@ -13,7 +13,8 @@ class Local():
         *args:
             file_dir: local image storage directory\n
             ext: file format\n
-            recursive: also list files in subdirectories
+            recursive: also list files in subdirectories\n
+            full_dir: list all files of all types within a given directory
         
         Returns:
             List of files
@@ -23,13 +24,19 @@ class Local():
             filepath = os.path.normpath(os.path.join(file_dir, '**', '*'))
             filelist = glob.glob(filepath, recursive=True)
             
-            return [f for f in filelist if f.lower().endswith(ext.lower())]
+            if full_dir == True:
+                return [f for f in filelist if os.path.isfile(f)]
+            if full_dir == False:
+                return [f for f in filelist if f.lower().endswith(ext.lower())]
         
         if recursive == False:
             filepath = os.path.normpath(os.path.join(file_dir, '*'))
             filelist = glob.glob(filepath, recursive=False)
             
-            return [f for f in filelist if f.lower().endswith(ext.lower())]
+            if full_dir == True:
+                return [f for f in filelist if os.path.isfile(f)]
+            if full_dir == False:
+                return [f for f in filelist if f.lower().endswith(ext.lower())]
     
     def move_directory(source_path: str, target_path: str):
         
