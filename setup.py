@@ -39,7 +39,7 @@ setup(
         'scikit-image',
         'minio',
         'numpy',
-        'astral'
+        'astral',
         'boto3==1.35.99',
         'jupyter',
         'notebook'
