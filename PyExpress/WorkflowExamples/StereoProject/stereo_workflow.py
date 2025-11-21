@@ -38,10 +38,10 @@ except Exception as e:
 # analysis from rigid camera installations, utilizing the dynamic 4D frame
 # analysis functionality of Metashape.
 
-def MakoG319_workflow(config_data: dict,
-                      prj_dir:     str,
-                      img_dir:     str,
-                      config_name: bool=False):
+def StereoWorkflow(config_data: dict,
+                   prj_dir:     str,
+                   img_dir:     str,
+                   config_name: bool=False):
 
 ###############################################################################
 #####

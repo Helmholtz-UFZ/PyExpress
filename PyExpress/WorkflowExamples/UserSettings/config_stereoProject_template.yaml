@@ -40,9 +40,10 @@ input:
       convert: bool          # whether to convert image format
       delete_tmp: bool       # whether to delete content of temp image folder
     source:                
-      type: str              # source location of image data: ['local', 'minio']
+      type: str              # source location of image data: ['local', 'minio', 'quantum']
       local: str             # absolute path to image data folder on a local source
       minio: str             # absolute path to MinIO login data: '/**/minIO.json|yaml'
+      quantum: str           # absolute path to quantum ActiveScale login data: '/**/quantum.json|yaml'
       temp: str              # relative/absolute path to a temp folder for transferred images
     format:
       raw: str               # raw format of source images: ['jpg', 'tif', 'tiff', 'png', ...]

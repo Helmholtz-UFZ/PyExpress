@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum für Umweltforschung GmbH - UFZ
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# This configuration file controls interactions with the high performance object
+# storage system Quantum ActiveScale (https://www.quantum.com/de/produkte/object-storage/) 
+# and specifies parameters for object upload and download operations.
+#
+# -----------------------------------------------------------------------------------
+#
+connection_info:
+  endpoint_url:  str     # complete URL for connection (used if specified, otherwise **kwargs - not implemented yet)
+  kwargs:
+    region_name: str     # region for API access
+    use_ssl:     true    # usage of http or via SSL encrypted https protocol
+    verify:      true    # verification of SSL protocol
+    ...:         str     # whatever
+#
+credentials:
+  access_key: str        # access key for the Quantum S3 API
+  secret_key: str        # secret key for the Quantum S3 API
+#
+bucketInfo:
+  name:      str         # bucket name in MinIO
+  prefix:    str         # prefix used for specifying a directory in the bucket
+#
+filters:
+  recursive: bool        # recursively search for objects within the specified bucket directory
+  string:    str         # string for filtering object list
+  list:      [bool, ['AND','OR'], [str, str, str, ...]] # list of strings for filtering object list
+                                                        # filter is applied if bool is set to 'true' 
+                                                        # string list filter applied with 'AND'/'OR' logic

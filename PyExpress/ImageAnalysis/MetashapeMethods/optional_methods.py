@@ -620,7 +620,8 @@ class PointCloud():
                 class_param: (boolean, type, paramset)
                         type: 'test', 'vine', 'crop'\n
                         paramset if type is not 'test': 'set1', 'set2', ...\n
-                        paramset if type is 'test': {'max_angle': float, 'max_distance': float, 'cell_size': float}
+                        paramset if type is 'test': 
+                            {'max_angle': float, 'max_distance': float, 'cell_size': float, 'erosion_radius': float}
                 save_project: (True/False, active_chunk.label)
     
             **kwargs:
@@ -636,15 +637,17 @@ class PointCloud():
             start_time = time.time()
                 
             # get keyword arguments from class_param list
-            parameterset = ppp.classPM(paramSet=class_param[1:])
-            max_angle    = getattr(parameterset.Classification, class_param[1]).max_angle
-            max_dist     = getattr(parameterset.Classification, class_param[1]).max_dist
-            cell_size    = getattr(parameterset.Classification, class_param[1]).cell_size
+            parameterset   = ppp.classPM(paramSet=class_param[1:])
+            max_angle      = getattr(parameterset.Classification, class_param[1]).max_angle
+            max_dist       = getattr(parameterset.Classification, class_param[1]).max_dist
+            cell_size      = getattr(parameterset.Classification, class_param[1]).cell_size
+            erosion_radius = getattr(parameterset.Classification, class_param[1]).erosion_radius
     
             # process logging and console output      
             print('Metashape workflow: (OPT) classifying point cloud')
             
-            arguments = {'max_angle': max_angle, 'max_distance': max_dist, 'cell_size': cell_size}    
+            arguments = {'max_angle': max_angle, 'max_distance':   max_dist, 
+                         'cell_size': cell_size, 'erosion_radius': erosion_radius}    
             for key, value in kwargs.items():        
                 arguments[key] = value
             arguments_string = '\n'.join([f'    {key}: {value}' for key, value in arguments.items()])
@@ -660,10 +663,10 @@ class PointCloud():
             # since Metashape version 2.0.0 dense_cloud was renamed to point_cloud.
             if str(Metashape.version)[0] == '1':
                 project.chunk.dense_cloud.classifyGroundPoints(max_angle=max_angle, max_distance=max_dist, 
-                                                               cell_size=cell_size, **kwargs)
+                                                               cell_size=cell_size, erosion_radius=erosion_radius, **kwargs)
             if str(Metashape.version)[0] == '2':
                 project.chunk.point_cloud.classifyGroundPoints(max_angle=max_angle, max_distance=max_dist,
-                                                               cell_size=cell_size, **kwargs)
+                                                               cell_size=cell_size, erosion_radius=erosion_radius, **kwargs)
     
             hlp.log(start_time=start_time, string=f"{' ' * 24}execution time", dim='HMS')
                 
@@ -695,7 +698,9 @@ class PointCloud():
             max_angle   = config_data['metashape']['point_cloud']['classification']['max_angle']
             max_dist    = config_data['metashape']['point_cloud']['classification']['max_distance']
             cell_size   = config_data['metashape']['point_cloud']['classification']['cell_size']
-            test_set    = {'max_angle': max_angle, 'max_distance': max_dist, 'cell_size': cell_size}
+            erosion_rad = config_data['metashape']['point_cloud']['classification']['erosion_radius'] 
+            test_set    = {'max_angle': max_angle, 'max_distance':   max_dist, 
+                           'cell_size': cell_size, 'erosion_radius': erosion_rad}
             
             if class_type == 'test':
                 classPC = (class_usage, class_type, test_set)

@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 try:
-    from .StereoProject.MakoG319_workflow import *
-    from .DroneProject.M2EA_workflow      import *
-    from .DroneProject.M3T_workflow       import *
+    from .StereoProject.stereo_workflow  import *
+    from .DroneProject.vineyard_workflow import *
+    from .DroneProject.orchard_workflow  import *
 except:
     pass
 
-from .DroneProject.TEST_workflow import *
+from .DroneProject.test_workflow import *

@@ -41,10 +41,11 @@ input:
       convert: false       # [True/False]: whether to convert image format
       delete_tmp: true     # [True/False]: whether to delete content of temp image folder
     source:
-      type: local                     # string: ['local', 'minio'] - source location of image data
-      local: './data/images'          # string: path to image data folder on a local source
-      minio: 'C:/.../minIO.json|yaml' # string: path to MinIO login data file in JSON or YAML format
-      temp: '.data/temp/images2tiff/' # string: relative local path to a tmp folder for transferred images
+      type: local                         # string: ['local', 'minio', 'quantum'] - source location of image data
+      local: './data/images'              # string: path to image data folder on a local source
+      minio: 'C:/.../minIO.json|yaml'     # string: path to MinIO login data file in JSON or YAML format
+      quantum: 'C:/.../quantum.json|yaml' # string: path to quantum ActiveScale login data file in JSON or YAML format
+      temp: '.data/temp/images2tiff/'     # string: relative local path to a tmp folder for transferred images
     format:
       raw: "TIFF"                     # string: ['jpg', 'tif', 'tiff', 'png', ...] - raw format of source images
       conv: [false, "TIFF"]           # [True/False, '*newformat*]: indicates if a format conversion has already been applied
@@ -125,6 +126,7 @@ metashape:
       max_angle: 0.22   # float:  max angle parameter (test)
       max_distance: 0.9 # float:  max distance parameter (test)
       cell_size: 1.515  # float:  cell size parameter (test)
+      erosion_radius: 0 # float:  erosion radius parameter (test)
                         # add the tested parameters to pointcloud_classification_parameters.py if approved
     filter:
       unclass: true     # [True/False]: filter for unclassified points

@@ -3,7 +3,7 @@
 
 """
 Main control script for automatically managing an entire workflow to generate 
-3D spatial data from raw image files acquired by UAV campaigns.
+3D spatial data from raw image files acquired by UAV campaigns in a vineyard.
 
 @author: Martin Kobe, martin.kobe@ufz.de; Rikard Graß, rikard.grass@ufz.de
 
@@ -67,7 +67,7 @@ if new_project == True:
     img_dir, prj_dir = hlp.create_UAV_project(config_data = config_data, 
                                               config_path = config_path)
        
-# b) Transfer images from various sources (local, minIO) to either
+# b) Transfer images from various sources (local, minIO, quantum) to either
 #    - project image folder (no preprocessing) or
 #    - temp image folder (preprocessing required)
 #    NOTE: In this test example, the project image folder is defined as default
@@ -102,10 +102,10 @@ if new_project == False:
                                         config_path = config_path)
     
 # b) Run example workflow for a UAV-based vegetation monitoring project     
-    MultiProject = PyExpress.WorkflowExamples.TEST_workflow(config_data = config_data,
-                                                            prj_dir     = prj_dir,
-                                                            img_dir     = img_dir,
-                                                            config_name = config_file)          
+    MultiProject = PyExpress.WorkflowExamples.TestWorkflow(config_data = config_data,
+                                                           prj_dir     = prj_dir,
+                                                           img_dir     = img_dir,
+                                                           config_name = config_file)          
 
 # c) Optionally delete log file after processing
     if input('Delete lock file [y,n]?: ') == 'y': MultiProject.doc.clear()

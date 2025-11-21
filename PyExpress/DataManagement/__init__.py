@@ -3,3 +3,4 @@
 
 from .local import *
 from .minIO import *
+from .quantum_activescale import *

@@ -37,10 +37,10 @@ except Exception as e:
 # Main function for a fully automated photogrammetric workflow for image 
 # analysis from M2EA drone data.
 
-def TEST_workflow(config_data: dict,
-                  prj_dir:     str,
-                  img_dir:     str,
-                  config_name: str):
+def TestWorkflow(config_data: dict,
+                 prj_dir:     str,
+                 img_dir:     str,
+                 config_name: str):
 
 ###############################################################################
 #####

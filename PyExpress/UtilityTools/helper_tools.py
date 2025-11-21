@@ -210,12 +210,13 @@ def transfer_images(config_data: dict, dest_dir: str, recursive=True):
         recursive: collect and copy image files also from subdirectories
     '''
         
-    source    = config_data['input']['image']['source']['type']
-    uri_minio = config_data['input']['image']['source']['minio']
-    uri_local = config_data['input']['image']['source']['local']
-    extension = config_data['input']['image']['format']['raw']
+    source      = config_data['input']['image']['source']['type']
+    uri_minio   = config_data['input']['image']['source']['minio']
+    uri_quantum = config_data['input']['image']['source']['quantum']
+    uri_local   = config_data['input']['image']['source']['local']
+    extension   = config_data['input']['image']['format']['raw']
 
-    proj_type = config_data['input']['project']['type']
+    proj_type   = config_data['input']['project']['type']
     
     adm.Local.remove_directory(dir_path=dest_dir)
     
@@ -235,6 +236,16 @@ def transfer_images(config_data: dict, dest_dir: str, recursive=True):
                                                       list_filter   = cloudData.list_filter)
         
         cloudData.download_from_minio()
+    
+    if source == 'quantum':
+        cloudData = adm.QuantumActiveScale(config_QAS=uri_quantum, temp_dir=dest_dir, get_filelist=False)
+        cloudData.filelist = cloudData.get_objectlist(client        = cloudData.client,
+                                                      bucket        = cloudData.bucket_name,
+                                                      prefix        = cloudData.prefix,
+                                                      recursive     = cloudData.recursive,
+                                                      string_filter = cloudData.str_filter, 
+                                                      list_filter   = cloudData.list_filter)
+        cloudData.download_fileobject(as_path=True)                                         
 
     if source == "local":
         files      = get_filelist(file_dir=uri_local, ext=extension, recursive=recursive)        

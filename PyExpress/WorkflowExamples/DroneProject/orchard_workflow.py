@@ -5,7 +5,7 @@
 
 """
 Example script for automatically performing a complete Metashape (MS) workflow 
-on images from UAV campaigns with the M3T drone.
+on images from UAV campaigns with the M3T drone used in an orchard meadow.
 
 @author: Martin Kobe, martin.kobe@ufz.de; Rikard Graß, rikard.grass@ufz.de
 
@@ -34,29 +34,31 @@ except Exception as e:
 
 
 ###############################################################################
-# Main function for a fully automated photogrammetric workflow for image 
-# analysis from M2EA drone data.
+# Main function for a fully automated photogrammetric workflow for 
+# drone-based image analysis from campaigns in a (mixed) fruit orchard.
 
-def M3T_workflow(config_data: dict,
-                  prj_dir:     str,
-                  img_dir:     str,
-                  config_name: str):
+def OrchardWorkflow(config_data: dict,
+                    prj_dir:     str,
+                    img_dir:     str,
+                    config_name: str):
 
 ###############################################################################
 #####
 ##### parameters for point cloud classification
-    class_usage = config_data['metashape']['point_cloud']['classification']['use']
-    class_type  = config_data['metashape']['point_cloud']['classification']['type']
-    class_set   = config_data['metashape']['point_cloud']['classification']['set']
-    max_angle   = config_data['metashape']['point_cloud']['classification']['max_angle']
-    max_dist    = config_data['metashape']['point_cloud']['classification']['max_distance']
-    cell_size   = config_data['metashape']['point_cloud']['classification']['cell_size']
-    test_set    = {'max_angle': max_angle, 'max_distance': max_dist, 'cell_size': cell_size}
+    class_usage    = config_data['metashape']['point_cloud']['classification']['use']
+    class_type     = config_data['metashape']['point_cloud']['classification']['type']
+    class_set      = config_data['metashape']['point_cloud']['classification']['set']
+    max_angle      = config_data['metashape']['point_cloud']['classification']['max_angle']
+    max_dist       = config_data['metashape']['point_cloud']['classification']['max_distance']
+    cell_size      = config_data['metashape']['point_cloud']['classification']['cell_size']
+    erosion_radius = config_data['metashape']['point_cloud']['classification']['erosion_radius']
+    test_set       = {'max_angle': max_angle, 'max_distance':   max_dist, 
+                      'cell_size': cell_size, 'erosion_radius': erosion_radius}
     
     if class_type == 'test':
-        classPC = (class_usage, class_type, test_set)
+        classPC   = (class_usage, class_type, test_set)
     else:
-        classPC = (class_usage, class_type, class_set)
+        classPC   = (class_usage, class_type, class_set)
 
 ##### parameters for the photogrammetric workflow
     setMarkers_manually  = config_data['input']['marker_reference']['set_marker_manu']

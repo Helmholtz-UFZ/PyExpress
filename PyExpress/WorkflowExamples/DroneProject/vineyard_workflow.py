@@ -5,7 +5,7 @@
 
 """
 Example script for automatically performing a complete Metashape (MS) workflow 
-on images from UAV campaigns with the M2EA drone.
+on images from UAV campaigns with the M2EA drone used in vineyards.
 
 @author: Martin Kobe, martin.kobe@ufz.de; Rikard Graß, rikard.grass@ufz.de
 
@@ -34,13 +34,13 @@ except Exception as e:
 
 
 ###############################################################################
-# Main function for a fully automated photogrammetric workflow for image 
-# analysis from M2EA drone data.
+# Main function for a fully automated photogrammetric workflow for 
+# drone-based image analysis from campaigns in a vineyard.
 
-def M2EA_workflow(config_data: dict,
-                  prj_dir:     str,
-                  img_dir:     str,
-                  config_name: str):
+def VineyardWorkflow(config_data: dict,
+                     prj_dir:     str,
+                     img_dir:     str,
+                     config_name: str):
 
 ###############################################################################
 #####
@@ -51,7 +51,9 @@ def M2EA_workflow(config_data: dict,
     max_angle   = config_data['metashape']['point_cloud']['classification']['max_angle']
     max_dist    = config_data['metashape']['point_cloud']['classification']['max_distance']
     cell_size   = config_data['metashape']['point_cloud']['classification']['cell_size']
-    test_set    = {'max_angle': max_angle, 'max_distance': max_dist, 'cell_size': cell_size}
+    erosion_rad = config_data['metashape']['point_cloud']['classification']['erosion_radius']
+    test_set    = {'max_angle': max_angle, 'max_distance': max_dist, 
+                   'cell_size': cell_size, 'erosion_radius': erosion_rad}
     
     if class_type == 'test':
         classPC = (class_usage, class_type, test_set)
