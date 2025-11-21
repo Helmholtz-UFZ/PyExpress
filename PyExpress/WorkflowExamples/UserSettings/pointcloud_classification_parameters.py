@@ -49,7 +49,7 @@ class Parameters():
                     self.crop = getattr(self, paramSet[0])(paramSet=paramSet)
                    
                 if paramSet[0]=='fruit':
-                    self.crop = getattr(self, paramSet[0])(paramSet=paramSet)
+                    self.fruit = getattr(self, paramSet[0])(paramSet=paramSet)
                 
                 if paramSet[0]=='test':
                     self.test = getattr(self, paramSet[0])(paramSet=paramSet)

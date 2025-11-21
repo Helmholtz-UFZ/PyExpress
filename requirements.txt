@@ -10,6 +10,7 @@ astral
 influxdb-client
 pysftp
 tifffile
+boto3==1.35.99
 
 # Note: Metashape must be manually installed from the .whl file with version >= 2.1.0
 # Download the correct .whl file from https://www.agisoft.com/downloads/installer/ and install using:
