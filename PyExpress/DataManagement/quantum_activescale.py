@@ -12,6 +12,7 @@ import os, sys
 import yaml, json
 import requests, boto3
 from   botocore.exceptions import ClientError
+from   concurrent.futures  import ThreadPoolExecutor
 
 class QuantumActiveScale():
     
@@ -125,7 +126,40 @@ class QuantumActiveScale():
                               aws_secret_access_key = self.aws_secret_access_key)
         return client
 
+    def get_file_tree(self, show=True):
 
+        ''' Returns and the content of a given bucket as a folder tree. '''
+        
+        paginator = self.client.get_paginator("list_objects_v2")
+        pages     = paginator.paginate(Bucket=self.bucket_name)
+        folders   = set()
+        tree      = {}
+        
+        for page in pages:
+            for obj in page.get("Contents", []): 
+                key = obj["Key"]
+                if "/" in key: 
+                    parts = key.split("/")[:-1]
+                    for i in range(1, len(parts) + 1):
+                        folders.add("/".join(parts[:i]))
+
+        for folder in sorted(folders):
+            parts = folder.split("/")
+            node = tree
+            for part in parts:
+                node = node.setdefault(part, {})
+        
+        if show:
+            def _print_tree(node, indent=0):
+                for key in sorted(node.keys()):
+                    print("  " * indent + f"📁 {key}")
+                    _print_tree(node[key], indent + 1)                    
+            print(f"\nFolder tree from QAS S3://{self.bucket_name}/\n")
+            _print_tree(tree)
+        
+        return tree
+        
+    
     def get_objectlist(self, client: object, bucket: str, prefix=None, recursive=True,
                        string_filter=[False,''], list_filter=[False, 'AND', list()]):
         
@@ -220,7 +254,7 @@ class QuantumActiveScale():
                 
         return filtOBJ
 
-    def download_file(self, as_path=False):
+    def download_file(self, as_path=False, max_workers=5):
 
         ''' 
         Downloads all files listed in the QAS S3 client class parameter 
@@ -228,12 +262,13 @@ class QuantumActiveScale():
         
         *args:
             as_path: [True, False]
-                True - creates a path from the QAS filepath with '_' as the separator\n
-                False - creates the exact directory structure as in the QAS bucket
+                True  - creates a path from the QAS filepath with '_' as the separator\n
+                False - creates the exact directory structure as in the QAS bucket\n
+            max_workers: number of parallel threads (default = 5)
             
         '''
 
-        for file in self.filelist:
+        def _download_single_file(file):
             
             file_norm   = os.path.normpath(file)
             
@@ -266,7 +301,10 @@ class QuantumActiveScale():
                                       Key      = file,
                                       Filename = destination)
 
-    def download_fileobject(self, as_path=False):
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            executor.map(_download_single_file, self.filelist)            
+            
+    def download_fileobject(self, as_path=False, max_workers=5):
 
         ''' 
         Downloads all objects listed in the QAS S3 client class parameter 
@@ -275,11 +313,12 @@ class QuantumActiveScale():
         *args:
             as_path: [True, False]
                 True - creates a path from the QAS filepath with '_' as the separator\n
-                False - creates the exact directory structure as in the QAS bucket
+                False - creates the exact directory structure as in the QAS bucket\n
+            max_workers: number of parallel threads (default = 5)
             
         '''
-
-        for file in self.filelist:
+  
+        def _download_single_file(file):
             
             file_norm   = os.path.normpath(file)
             
@@ -312,6 +351,9 @@ class QuantumActiveScale():
                 self.client.download_fileobj(Bucket  = self.bucket_name, 
                                              Key     = file, 
                                              Fileobj = f_object)
+        
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            executor.map(_download_single_file, self.filelist)
         
     def upload_to_qas_s3(self, filelist: list, directory: str):
         

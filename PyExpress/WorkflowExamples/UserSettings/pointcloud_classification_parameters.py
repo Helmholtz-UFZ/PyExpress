@@ -76,33 +76,37 @@ class Parameters():
                 
                 def __init__(self):
                     
-                    self.max_angle    = 45      # degree
-                    self.max_distance = 2       # meter
-                    self.cell_size    = 5       # meter
+                    self.max_angle      = 45      # degree
+                    self.max_distance   = 2       # meter
+                    self.cell_size      = 5       # meter
+                    self.erosion_radius = 0.0     # meter
 
             class set2():
                 
                 def __init__(self):
                     
-                    self.max_angle    = 0.3     # degree
-                    self.max_distance = 0.61    # meter
-                    self.cell_size    = 0.61    # meter
+                    self.max_angle      = 0.3     # degree
+                    self.max_distance   = 0.61    # meter
+                    self.cell_size      = 0.61    # meter
+                    self.erosion_radius = 0.0     # meter
 
             class set3():
                 
                 def __init__(self):
                     
-                    self.max_angle    = 0.4     # degree
-                    self.max_distance = 1.0     # meter
-                    self.cell_size    = 1.0     # meter
+                    self.max_angle      = 0.4     # degree
+                    self.max_distance   = 1.0     # meter
+                    self.cell_size      = 1.0     # meter
+                    self.erosion_radius = 0.0     # meter
 
             class set4():
                 
                 def __init__(self):
                     
-                    self.max_angle    = 0.2     # degree
-                    self.max_distance = 1.0     # meter
-                    self.cell_size    = 1.0     # meter  
+                    self.max_angle      = 0.2     # degree
+                    self.max_distance   = 1.0     # meter
+                    self.cell_size      = 1.0     # meter  
+                    self.erosion_radius = 0.0     # meter
                
         class fruit():
             

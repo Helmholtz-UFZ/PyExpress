@@ -637,11 +637,12 @@ class PointCloud():
             start_time = time.time()
                 
             # get keyword arguments from class_param list
-            parameterset   = ppp.classPM(paramSet=class_param[1:])
-            max_angle      = getattr(parameterset.Classification, class_param[1]).max_angle
-            max_dist       = getattr(parameterset.Classification, class_param[1]).max_dist
-            cell_size      = getattr(parameterset.Classification, class_param[1]).cell_size
-            erosion_radius = getattr(parameterset.Classification, class_param[1]).erosion_radius
+            parameterset      = ppp.classPM(paramSet=class_param[1:])
+            max_angle         = getattr(parameterset.Classification, class_param[1]).max_angle
+            max_dist          = getattr(parameterset.Classification, class_param[1]).max_dist
+            max_terrain_slope = 10
+            cell_size         = getattr(parameterset.Classification, class_param[1]).cell_size
+            erosion_radius    = getattr(parameterset.Classification, class_param[1]).erosion_radius
     
             # process logging and console output      
             print('Metashape workflow: (OPT) classifying point cloud')
@@ -666,7 +667,8 @@ class PointCloud():
                                                                cell_size=cell_size, erosion_radius=erosion_radius, **kwargs)
             if str(Metashape.version)[0] == '2':
                 project.chunk.point_cloud.classifyGroundPoints(max_angle=max_angle, max_distance=max_dist,
-                                                               cell_size=cell_size, erosion_radius=erosion_radius, **kwargs)
+                                                               cell_size=cell_size, erosion_radius=erosion_radius, 
+                                                               max_terrain_slope=max_terrain_slope, **kwargs)
     
             hlp.log(start_time=start_time, string=f"{' ' * 24}execution time", dim='HMS')
                 
@@ -798,13 +800,13 @@ class PointCloud():
             _class = str(point_class).split('.')[-1].lower()
             
             if str(Metashape.version)[0] == '1':
-                project.chunk.dense_cloud.removePoints([Metashape.PointClass.Ground])
+                project.chunk.dense_cloud.removePoints([point_class])
                 project.logging(f'Removing PointClass: {point_class}')
                 if render_preview[0] == True:
                     project.chunk.dense_cloud.renderPreview().save(path=f'{project.export_dir}/{chunk}/{render_preview[1]}.tiff')
                     
             if str(Metashape.version)[0] == '2':
-                project.chunk.point_cloud.removePoints([Metashape.PointClass.Ground])
+                project.chunk.point_cloud.removePoints([point_class])
                 project.logging(f'Removing PointClass: {point_class}')
                 if render_preview[0] == True:
                     project.chunk.point_cloud.renderPreview().save(path=f'{project.export_dir}/{chunk}/{render_preview[1]}.tiff')

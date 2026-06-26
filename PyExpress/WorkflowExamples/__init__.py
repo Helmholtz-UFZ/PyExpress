@@ -3,9 +3,8 @@
 
 try:
     from .StereoProject.stereo_workflow  import *
+    from .DroneProject.test_workflow     import *
     from .DroneProject.vineyard_workflow import *
     from .DroneProject.orchard_workflow  import *
 except:
     pass
-
-from .DroneProject.test_workflow import *

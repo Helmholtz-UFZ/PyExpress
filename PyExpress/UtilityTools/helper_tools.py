@@ -381,7 +381,7 @@ def create_stereo_project(config_data: dict, config_path: str):
     return image_data_path, prj_path
 
 
-def open_project(config_data: str, config_path: str):
+def open_project(config_data: str, config_path: str, copy_config=False):
     
     '''
     Returns project and image paths of an N metashape project structure.
@@ -389,6 +389,7 @@ def open_project(config_data: str, config_path: str):
     *args:
         config_data: content of the project configuration file\n
         config_path: full path to the configuration file in target metashape project folder
+        copy_config: copy config file into project directory with alpha-numeric counting
     '''
     
     # console logging
@@ -421,16 +422,17 @@ def open_project(config_data: str, config_path: str):
     prj_dir          = os.path.join(project_path, 'metashape_prj')
 
     # copy parameterfile YAML or JSON to project directory
-    conf_path = os.path.join(prj_dir, f'{project_name}_{add_info}_#1')
-    conf_path = re.sub(r'^_+|_+$', '', re.sub(r'_{2,}', '_', conf_path))
-    conf_path = f'{conf_path}.{config_path.split(".")[-1]}'
-    
-    while os.path.exists(conf_path):
-        ind       = int(conf_path.split(".")[0].split('#')[-1])
-        conf_path = f'{conf_path.split("#")[0]}#{ind+1}.{config_path.split(".")[-1]}'
+    if copy_config:
+        conf_path = os.path.join(prj_dir, f'{project_name}_{add_info}_#1')
+        conf_path = re.sub(r'^_+|_+$', '', re.sub(r'_{2,}', '_', conf_path))
+        conf_path = f'{conf_path}.{config_path.split(".")[-1]}'
+        
+        while os.path.exists(conf_path):
+            ind       = int(conf_path.split(".")[0].split('#')[-1])
+            conf_path = f'{conf_path.split("#")[0]}#{ind+1}.{config_path.split(".")[-1]}'
 
-    if os.path.abspath(conf_path) != os.path.abspath(config_path):
-        adm.Local.copy_file(source_path=config_path, target_path=conf_path)
+        if os.path.abspath(conf_path) != os.path.abspath(config_path):
+            adm.Local.copy_file(source_path=config_path, target_path=conf_path)
     
     # # define project and image path
     # prj_path        = os.path.dirname(config_path)
